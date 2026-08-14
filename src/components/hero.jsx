@@ -142,7 +142,7 @@ export default function Hero() {
 
         </motion.div>
 
-
+ 
         <h3>BARANI  S</h3>
 
         <p>

@@ -11,6 +11,8 @@ const projects = [
       "An AI-powered research chatbot designed to process queries and generate useful research-oriented responses using modern AI APIs.",
     tech: ["AI", "OpenRouter API", "JavaScript"],
     status: "Completed",
+    github: "https://github.com/Baranieren/gemini-research-agent",
+    live: "https://gemini-research-agent-dity49cyxqu3urxajxrq6n.streamlit.app/",
   },
 
   {
@@ -22,6 +24,8 @@ const projects = [
       "An intelligent finance assistant designed to help users understand and manage personal financial information through conversational interaction.",
     tech: ["Python", "AI", "Chatbot"],
     status: "Completed",
+    github: "https://github.com/Baranieren/personal-finance-chatbot",
+    live: "https://personal-finance-chatbot-m5l7rcvthgcwqem3ugaeyn.streamlit.app/",
   },
 
   {
@@ -33,6 +37,8 @@ const projects = [
       "An AI-powered medical assistant concept featuring symptom checking, patient intake and intelligent severity prediction.",
     tech: ["Python", "Machine Learning", "AI"],
     status: "Completed",
+    github: "https://github.com/Baranieren/Smart-Care-AI",
+    live: "https://smart-care-ai-one.vercel.app/",
   },
 
   {
@@ -50,6 +56,7 @@ export default function Projects() {
   return (
     <section className="projects" id="projects">
 
+      {/* SECTION HEADER */}
       <motion.div
         className="projects-header"
         initial={{ opacity: 0, y: 30 }}
@@ -69,6 +76,7 @@ export default function Projects() {
         </p>
       </motion.div>
 
+      {/* PROJECT GRID */}
       <div className="projects-grid">
 
         {projects.map((project, index) => (
@@ -84,6 +92,7 @@ export default function Projects() {
             }}
           >
 
+            {/* PROJECT TOP */}
             <div className="project-top">
 
               <span className="project-number">
@@ -96,12 +105,15 @@ export default function Projects() {
 
             </div>
 
+            {/* PROJECT ICON */}
             <div className="project-icon">
               <Sparkles size={22} />
             </div>
 
+            {/* PROJECT CONTENT */}
             <div className="project-content">
 
+              {/* IMAGE */}
               {project.image && (
                 <img
                   src={project.image}
@@ -110,20 +122,22 @@ export default function Projects() {
                 />
               )}
 
+              {/* TITLE */}
               <h3>{project.title}</h3>
 
+              {/* DESCRIPTION */}
               <p>{project.description}</p>
 
+              {/* TECHNOLOGIES */}
               <div className="project-tech">
-
                 {project.tech.map((tech) => (
                   <span key={tech}>
                     {tech}
                   </span>
                 ))}
-
               </div>
 
+              {/* STATUS */}
               <div className="project-status">
                 <span></span>
                 {project.status}
@@ -131,23 +145,34 @@ export default function Projects() {
 
             </div>
 
-            <div className="project-links">
+            {/* BUTTONS */}
+            {project.github && project.live && (
+              <div className="project-links">
 
-              <a
-                href="https://github.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github size={16} />
-                GitHub
-              </a>
+                {/* GITHUB BUTTON */}
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link github-link"
+                >
+                  <Github size={16} />
+                  <span>GitHub</span>
+                </a>
 
-              <a href="#contact">
-                <ExternalLink size={16} />
-                Details
-              </a>
+                {/* LIVE DEMO BUTTON */}
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link live-link"
+                >
+                  <ExternalLink size={16} />
+                  <span>Live Demo</span>
+                </a>
 
-            </div>
+              </div>
+            )}
 
           </motion.article>
         ))}

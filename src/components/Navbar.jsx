@@ -12,7 +12,7 @@ export default function Navbar() {
     <header className="navbar">
 
       <a href="#home" className="logo" onClick={closeMenu}>
-        BARANI<span>.</span>
+        BARANI<span></span>
       </a>
 
       {/* DESKTOP NAV */}

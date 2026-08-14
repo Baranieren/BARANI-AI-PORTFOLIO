@@ -52,7 +52,7 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          I'm <span>BARANI S</span>, a B.Tech Artificial Intelligence
+          I'm <span>BARANI  S</span>, a B.Tech Artificial Intelligence
           and Machine Learning student passionate about building
           intelligent, useful and modern digital experiences.
         </motion.p>

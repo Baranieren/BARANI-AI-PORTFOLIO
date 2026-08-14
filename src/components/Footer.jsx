@@ -76,7 +76,7 @@ export default function Footer() {
         <div className="footer-bottom">
 
           <p className="copyright">
-            © {new Date().getFullYear()} BARANI S All rights reserved.
+            © {new Date().getFullYear()} BARANI  S All rights reserved.
           </p>
 
           <a

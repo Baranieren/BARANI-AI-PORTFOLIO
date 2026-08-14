@@ -27,6 +27,9 @@ const projects = [
     description:
       "An AI-powered research assistant built to collect, process and present useful information through an intelligent chatbot experience.",
     tech: ["AI", "OpenRouter API", "JavaScript", "Chatbot"],
+    github: "https://github.com/Baranieren/gemini-research-agent",
+    website:
+      "https://gemini-research-agent-dity49cyxqu3urxajxrq6n.streamlit.app/",
   },
   {
     number: "02",
@@ -35,6 +38,9 @@ const projects = [
     description:
       "An intelligent finance assistant designed to help users understand expenses, manage financial information and interact with an AI chatbot.",
     tech: ["AI", "Python", "Chatbot", "Finance"],
+    github: "https://github.com/Baranieren/personal-finance-chatbot",
+    website:
+      "https://personal-finance-chatbot-m5l7rcvthgcwqem3ugaeyn.streamlit.app/?utm_source=chatgpt.com",
   },
   {
     number: "03",
@@ -43,6 +49,8 @@ const projects = [
     description:
       "A medical AI assistant concept featuring symptom checking, patient intake and AI-based severity prediction.",
     tech: ["AI", "Machine Learning", "Python", "Healthcare"],
+    github: "https://github.com/Baranieren/Smart-Care-AI",
+    website: "https://smart-care-ai-one.vercel.app/",
   },
   {
     number: "04",
@@ -601,15 +609,39 @@ function App() {
                   </div>
                 </div>
 
-                {/* PROJECT DETAILS BUTTON */}
+                {/* PROJECT LINKS */}
 
                 <div className="project-links">
+
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link github-link"
+                    >
+                      GitHub ↗
+                    </a>
+                  )}
+
+                  {project.website && (
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link website-link"
+                    >
+                      Live Website ↗
+                    </a>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => setSelectedProject(project)}
                   >
                     View Project →
                   </button>
+
                 </div>
               </motion.div>
             ))}
@@ -681,6 +713,34 @@ function App() {
                       {tech}
                     </span>
                   ))}
+                </div>
+
+                {/* MODAL PROJECT LINKS */}
+
+                <div className="project-modal-links">
+
+                  {selectedProject.github && (
+                    <a
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-modal-link github-link"
+                    >
+                      View GitHub ↗
+                    </a>
+                  )}
+
+                  {selectedProject.website && (
+                    <a
+                      href={selectedProject.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-modal-link website-link"
+                    >
+                      Open Live Website ↗
+                    </a>
+                  )}
+
                 </div>
 
                 <button
