@@ -113,7 +113,9 @@ function App() {
   // CONTACT FORM STATES
   const [sending, setSending] = useState(false);
   const [messageStatus, setMessageStatus] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
+  // SEND EMAIL
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -129,22 +131,19 @@ function App() {
       )
       .then(
         () => {
-          setSending(false);
-          setMessageStatus("success");
-          e.target.reset();
+          console.log("EMAIL SENT SUCCESSFULLY");
 
-          setTimeout(() => {
-            setMessageStatus("");
-          }, 3000);
+          setSending(false);
+          setShowSuccess(true);
+          setMessageStatus("");
+
+          e.target.reset();
         },
         (error) => {
           console.error("EmailJS Error:", error);
+
           setSending(false);
           setMessageStatus("error");
-
-          setTimeout(() => {
-            setMessageStatus("");
-          }, 3000);
         }
       );
   };
@@ -585,9 +584,6 @@ function App() {
                 </div>
 
                 <div className="project-content">
-
-                  {/* PROJECT IMAGE */}
-
                   {project.image && (
                     <img
                       src={project.image}
@@ -609,10 +605,7 @@ function App() {
                   </div>
                 </div>
 
-                {/* PROJECT LINKS */}
-
                 <div className="project-links">
-
                   {project.github && (
                     <a
                       href={project.github}
@@ -641,7 +634,6 @@ function App() {
                   >
                     View Project →
                   </button>
-
                 </div>
               </motion.div>
             ))}
@@ -715,10 +707,7 @@ function App() {
                   ))}
                 </div>
 
-                {/* MODAL PROJECT LINKS */}
-
                 <div className="project-modal-links">
-
                   {selectedProject.github && (
                     <a
                       href={selectedProject.github}
@@ -740,7 +729,6 @@ function App() {
                       Open Live Website ↗
                     </a>
                   )}
-
                 </div>
 
                 <button
@@ -881,71 +869,144 @@ function App() {
               </div>
             </div>
 
-            {/* EMAILJS CONTACT FORM */}
+            {/* CONTACT FORM / SUCCESS SCREEN */}
 
-            <form
-              className="contact-form"
-              onSubmit={sendEmail}
-            >
-              <input
-                type="text"
-                name="user_name"
-                placeholder="Your Name"
-                required
-              />
+            <div className="contact-form-wrapper">
 
-              <input
-                type="email"
-                name="user_email"
-                placeholder="Your Email"
-                required
-              />
+              <AnimatePresence mode="wait">
 
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-              />
+                {showSuccess ? (
 
-              <textarea
-                name="message"
-                rows="6"
-                placeholder="Tell me about your project..."
-                required
-              />
+                  <motion.div
+                    key="success"
+                    className="contact-success"
+                    initial={{
+                      opacity: 0,
+                      scale: 0.95,
+                      y: 20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.95,
+                      y: -20,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                    }}
+                  >
 
-              {/* MESSAGE STATUS */}
+                    <div className="success-icon">
+                      ✓
+                    </div>
 
-              {sending ? (
-                <button
-                  type="button"
-                  disabled
-                  className="sending-message"
-                >
-                  Sending...
-                </button>
-              ) : messageStatus === "success" ? (
-                <button
-                  type="button"
-                  disabled
-                  className="success-message"
-                >
-                  Message Sent Successfully ✓
-                </button>
-              ) : messageStatus === "error" ? (
-                <button
-                  type="button"
-                  className="error-message"
-                  onClick={() => setMessageStatus("")}
-                >
-                  Failed to Send — Try Again
-                </button>
-              ) : (
-                <button type="submit">
-                  Send Message →
-                </button>
-              )}
-            </form>
+                    <h3>
+                      Message Sent Successfully!
+                    </h3>
+
+                    <p>
+  Thank you for reaching out.
+  I appreciate your response and will get back to you soon.
+</p>
+
+                    <button
+                      type="button"
+                      className="another-message-btn"
+                      onClick={() => {
+                        setShowSuccess(false);
+                        setMessageStatus("");
+                      }}
+                    >
+                      Send Another Message →
+                    </button>
+
+                  </motion.div>
+
+                ) : (
+
+                  <motion.form
+                    key="form"
+                    className="contact-form"
+                    onSubmit={sendEmail}
+                    initial={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                    }}
+                  >
+
+                    <input
+                      type="text"
+                      name="user_name"
+                      placeholder="Your Name"
+                      required
+                    />
+
+                    <input
+                      type="email"
+                      name="user_email"
+                      placeholder="Your Email"
+                      required
+                    />
+
+                    <input
+                      type="text"
+                      name="subject"
+                      placeholder="Subject"
+                    />
+
+                    <textarea
+                      name="message"
+                      rows="6"
+                      placeholder="Tell me about your project..."
+                      required
+                    />
+
+                    {sending ? (
+
+                      <button
+                        type="button"
+                        disabled
+                        className="sending-message"
+                      >
+                        Sending...
+                      </button>
+
+                    ) : messageStatus === "error" ? (
+
+                      <button
+                        type="button"
+                        className="error-message"
+                        onClick={() =>
+                          setMessageStatus("")
+                        }
+                      >
+                        Failed to Send — Try Again
+                      </button>
+
+                    ) : (
+
+                      <button type="submit">
+                        Send Message →
+                      </button>
+
+                    )}
+
+                  </motion.form>
+
+                )}
+
+              </AnimatePresence>
+
+            </div>
 
           </div>
         </motion.section>

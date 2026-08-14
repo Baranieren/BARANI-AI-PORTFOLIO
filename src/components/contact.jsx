@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
   MapPin,
@@ -6,15 +7,31 @@ import {
   Instagram,
   Github,
   Linkedin,
+  CheckCircle2,
+  ArrowLeft,
 } from "lucide-react";
 
 export default function Contact() {
+  const [isSent, setIsSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Show success message
+    setIsSent(true);
+  };
+
+  const handleAnotherMessage = () => {
+    setIsSent(false);
+  };
+
   return (
     <section className="contact" id="contact">
-
       <div className="contact-container">
 
-        {/* LEFT SIDE */}
+        {/* =========================
+            LEFT SIDE
+        ========================= */}
 
         <motion.div
           className="contact-info"
@@ -23,7 +40,6 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-
           <p className="section-label">
             GET IN TOUCH
           </p>
@@ -40,11 +56,11 @@ export default function Contact() {
             learning, collaborating and building something meaningful.
           </p>
 
-
           <div className="contact-details">
 
-            <div className="contact-item">
+            {/* EMAIL */}
 
+            <div className="contact-item">
               <div className="contact-icon">
                 <Mail size={18} />
               </div>
@@ -53,12 +69,12 @@ export default function Contact() {
                 <span>EMAIL</span>
                 <p>barani@example.com</p>
               </div>
-
             </div>
 
 
-            <div className="contact-item">
+            {/* LOCATION */}
 
+            <div className="contact-item">
               <div className="contact-icon">
                 <MapPin size={18} />
               </div>
@@ -67,11 +83,12 @@ export default function Contact() {
                 <span>LOCATION</span>
                 <p>Nagapattinam, Tamil Nadu</p>
               </div>
-
             </div>
 
           </div>
 
+
+          {/* SOCIALS */}
 
           <div className="contact-socials">
 
@@ -103,86 +120,201 @@ export default function Contact() {
         </motion.div>
 
 
-        {/* FORM */}
+        {/* =========================
+            RIGHT SIDE
+        ========================= */}
 
-        <motion.form
-          className="contact-form"
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <AnimatePresence mode="wait">
 
-          <div className="form-header">
-            <span>01</span>
+          {!isSent ? (
 
-            <p>
-              SEND A MESSAGE
-            </p>
-          </div>
+            /* =========================
+               CONTACT FORM
+            ========================= */
 
+            <motion.form
+              key="contact-form"
+              className="contact-form"
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={{ duration: 0.4 }}
+              onSubmit={handleSubmit}
+            >
 
-          <div className="input-group">
+              <div className="form-header">
+                <span>01</span>
 
-            <label>Name</label>
-
-            <input
-              type="text"
-              placeholder="Your name"
-            />
-
-          </div>
-
-
-          <div className="input-group">
-
-            <label>Email</label>
-
-            <input
-              type="email"
-              placeholder="your@email.com"
-            />
-
-          </div>
+                <p>
+                  SEND A MESSAGE
+                </p>
+              </div>
 
 
-          <div className="input-group">
+              {/* NAME */}
 
-            <label>Subject</label>
+              <div className="input-group">
 
-            <input
-              type="text"
-              placeholder="Artificial Intelligence & Machine Learning"
-            />
+                <label>Name</label>
 
-          </div>
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
 
-
-          <div className="input-group">
-
-            <label>Message</label>
-
-            <textarea
-              rows="5"
-              placeholder="Tell me about your idea..."
-            />
-
-          </div>
+              </div>
 
 
-          <button type="submit">
+              {/* EMAIL */}
 
-            Send Message
+              <div className="input-group">
 
-            <Send size={17} />
+                <label>Email</label>
 
-          </button>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                />
 
-        </motion.form>
+              </div>
+
+
+              {/* SUBJECT */}
+
+              <div className="input-group">
+
+                <label>Subject</label>
+
+                <input
+                  type="text"
+                  placeholder="Artificial Intelligence & Machine Learning"
+                  required
+                />
+
+              </div>
+
+
+              {/* MESSAGE */}
+
+              <div className="input-group">
+
+                <label>Message</label>
+
+                <textarea
+                  rows="5"
+                  placeholder="Tell me about your idea..."
+                  required
+                />
+
+              </div>
+
+
+              {/* SEND BUTTON */}
+
+              <button type="submit">
+
+                Send Message
+
+                <Send size={17} />
+
+              </button>
+
+            </motion.form>
+
+
+          ) : (
+
+            /* =========================
+               SUCCESS SCREEN
+            ========================= */
+
+            <motion.div
+              key="success-message"
+              className="contact-form contact-success"
+              initial={{ opacity: 0, scale: 0.95, x: 30 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.45 }}
+            >
+
+              <div className="form-header">
+                <span>02</span>
+
+                <p>
+                  MESSAGE SENT
+                </p>
+              </div>
+
+
+              <div className="success-content">
+
+                {/* SUCCESS ICON */}
+
+                <motion.div
+                  className="success-icon"
+                  initial={{ scale: 0, rotate: -20 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{
+                    delay: 0.15,
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 180,
+                  }}
+                >
+                  <CheckCircle2 size={55} />
+                </motion.div>
+
+
+                {/* TITLE */}
+
+                <motion.h3
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
+                  Message Sent
+                </motion.h3>
+
+
+                {/* DESCRIPTION */}
+
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                >
+                  Thanks for reaching out!
+                  <br />
+                  Your message has been received successfully.
+                </motion.p>
+
+
+                {/* ANOTHER MESSAGE BUTTON */}
+
+                <motion.button
+                  type="button"
+                  className="another-message-btn"
+                  onClick={handleAnotherMessage}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45 }}
+                >
+                  <ArrowLeft size={16} />
+
+                  Send Another Message
+                </motion.button>
+
+              </div>
+
+            </motion.div>
+
+          )}
+
+        </AnimatePresence>
 
       </div>
-
     </section>
   );
 }
