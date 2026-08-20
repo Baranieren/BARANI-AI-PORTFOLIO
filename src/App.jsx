@@ -921,7 +921,7 @@ function App() {
                         setMessageStatus("");
                       }}
                     >
-                      Send Another Message →
+                      Send Another Response →
                     </button>
 
                   </motion.div>
